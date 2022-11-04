@@ -1,10 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { UserModel } from '../../models/User';
 import { DefaultMessageResponse } from '../../types/DefaultMessageResponse';
+import { User } from '../../types/User';
+import CryptoJS from "crypto-js";
 
-export default function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse>) {
+export default async function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse>) {
     try {
         if (requisicao.method !== 'POST') {
             return resposta.status(405).json({ error: 'Método informado não existe' });
+        }
+
+        const {MY_SECRET_KEY} = process.env;
+        if(!MY_SECRET_KEY){
+            return resposta.status(500).json({error : 'Env MY_SECRET_KEY não informada'});
         }
 
         if (!requisicao.body) {
@@ -13,8 +21,20 @@ export default function (requisicao: NextApiRequest, resposta: NextApiResponse<D
 
         const { login, password } = requisicao.body;
 
-        if (login === 'teste@teste.com'
-            || password === 'teste@123') {
+        if(!login || !password){
+            return resposta.status(400).json({ error: 'Favor informar os dados para autenticação' });
+        }
+
+        const existsUserWithEmail = await UserModel.find({email: login});
+        if(!existsUserWithEmail || existsUserWithEmail.length === 0){
+            return resposta.status(400).json({ error: 'Usuário e senha não conferem' });
+        }
+
+        const user = existsUserWithEmail[0] as User;
+        const bytes  = CryptoJS.AES.decrypt(user.password, MY_SECRET_KEY);
+        const savedPassword = bytes.toString(CryptoJS.enc.Utf8);
+
+        if (password === savedPassword) {
             return resposta.status(200).json({ msg: 'Usuário autenticado!' });
         }
 
