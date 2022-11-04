@@ -3,8 +3,9 @@ import { UserModel } from '../../models/User';
 import { DefaultMessageResponse } from '../../types/DefaultMessageResponse';
 import { User } from '../../types/User';
 import CryptoJS from "crypto-js";
+import jwt from 'jsonwebtoken';
 
-export default async function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse>) {
+export default async function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse | any>) {
     try {
         if (requisicao.method !== 'POST') {
             return resposta.status(405).json({ error: 'Método informado não existe' });
@@ -35,7 +36,17 @@ export default async function (requisicao: NextApiRequest, resposta: NextApiResp
         const savedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
         if (password === savedPassword) {
-            return resposta.status(200).json({ msg: 'Usuário autenticado!' });
+
+            console.log(user._id)
+            const token = jwt.sign({_id: user._id}, MY_SECRET_KEY);
+
+            const result = {
+                token,
+                name: user.name,
+                email: user.email
+            }
+
+            return resposta.status(200).json(result);
         }
 
         return resposta.status(400).json({ error: 'Usuário e senha não conferem' });
