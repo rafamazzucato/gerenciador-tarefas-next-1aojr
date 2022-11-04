@@ -36,8 +36,6 @@ export default async function (requisicao: NextApiRequest, resposta: NextApiResp
         const savedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
         if (password === savedPassword) {
-
-            console.log(user._id)
             const token = jwt.sign({_id: user._id}, MY_SECRET_KEY);
 
             const result = {
