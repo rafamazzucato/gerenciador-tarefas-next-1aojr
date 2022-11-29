@@ -4,8 +4,9 @@ import { DefaultMessageResponse } from '../../types/DefaultMessageResponse';
 import { User } from '../../types/User';
 import CryptoJS from "crypto-js";
 import jwt from 'jsonwebtoken';
+import { connectToDB } from '../../middlewares/connectToDB';
 
-export default async function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse | any>) {
+const loginEndpoint = async function (requisicao: NextApiRequest, resposta: NextApiResponse<DefaultMessageResponse | any>) {
     try {
         if (requisicao.method !== 'POST') {
             return resposta.status(405).json({ error: 'Método informado não existe' });
@@ -53,3 +54,5 @@ export default async function (requisicao: NextApiRequest, resposta: NextApiResp
         return resposta.status(500).json({ error: 'Ocorreu erro ao logar usuário, tente novamente....' });
     }
 }
+
+export default connectToDB(loginEndpoint);
