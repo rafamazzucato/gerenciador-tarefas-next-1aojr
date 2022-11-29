@@ -95,16 +95,18 @@ const getTasks = async (req: NextApiRequest, res: NextApiResponse<DefaultMessage
     } as any;
 
     if (params?.finishPrevisionStart) {
-        const inputDate = new Date(params?.finishPrevisionStart);
-        query.finishPrevisionDate = { $gte: inputDate }
+        const inputDate = moment(params?.finishPrevisionStart);
+        console.log('start', inputDate.format('yyyy-MM-DD'));
+        query.finishPrevisionDate = { $gte: inputDate.format('yyyy-MM-DD') }
     }
 
     if (params?.finishPrevisionEnd) {
-        const lastDate = new Date(params?.finishPrevisionEnd);
+        const lastDate = moment(params?.finishPrevisionEnd);
+        console.log('end', lastDate.format('yyyy-MM-DD'));
         if (!query.finishPrevisionDate) {
             query.finishPrevisionDate = {};
         }
-        query.finishPrevisionDate.$lte = lastDate
+        query.finishPrevisionDate.$lte = lastDate.format('yyyy-MM-DD')
     }
 
     if (params?.status) {
