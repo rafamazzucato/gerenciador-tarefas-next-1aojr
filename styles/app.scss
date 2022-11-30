@@ -50,5 +50,11 @@ input {
     }
 }
 
+.error{
+    text-align: center;
+    color: $errorColor;
+    font-weight: bold;
+}
+
 @import './login.scss';
 
