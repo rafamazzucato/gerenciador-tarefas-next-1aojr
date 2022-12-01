@@ -13,5 +13,5 @@ export default function Index() {
     }
   }, []);
 
-  return token ? <Home /> : <Login setToken={setToken}/>;
+  return token ? <Home setToken={setToken}/> : <Login setToken={setToken}/>;
 }

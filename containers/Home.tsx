@@ -1,8 +1,17 @@
 import type { NextPage } from "next";
 import { Header } from "../components/Header";
 
-export const Home: NextPage = () => {
+type HomeProps = {
+    setToken(s: string): void
+}
+export const Home: NextPage<HomeProps> = ({setToken}) => {
+
+    const sair = () => {
+        localStorage.clear();
+        setToken('');
+    }
+
     return (<>
-        <Header />
+        <Header sair={sair}/>
     </>);
 }

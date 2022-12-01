@@ -1,11 +1,9 @@
 import type { NextPage } from "next";
 
-export const Header : NextPage = () => {
-
-    const sair = () => {
-
-    }
-
+type HeaderProps = {
+    sair(): void
+}
+export const Header : NextPage<HeaderProps> = ({sair}) => {
     return (
         <div className="container-header">
             <img src="/logo.svg" alt="Logo Fiap" className="logo"/>
