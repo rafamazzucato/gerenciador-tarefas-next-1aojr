@@ -6,7 +6,7 @@ export const Filter : NextPage = () => {
     const [showFilter, setShowFilters] = useState(false)
 
     return (
-        <div className="container-filter">
+        <div className="container-filters">
             <div className="title">
                 <span>Tarefas</span>
                 <img src="/filter.svg" alt="Filtrar atividades" onClick={_ => setShowFilters(!showFilter)}/>

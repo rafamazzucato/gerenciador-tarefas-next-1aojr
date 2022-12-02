@@ -1,0 +1,54 @@
+@import './config.scss';
+
+.container-filters {
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    margin-top: 16px;
+    background-color: $mediumGreyColorOpacity;
+    border-radius: 12px;
+    padding: 10px 15px;
+
+    .title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .form{
+            display: none;
+        }
+
+        span{
+            color: $primaryColor;
+            font-size: 18px;
+            letter-spacing: 0.01em;
+            font-weight: bold;
+        }
+    }
+
+    .mobiles-filters{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        margin-top: 15px;
+
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 8px;
+
+            label{
+                color: $primaryColor;
+                font-size: 16px;
+                margin-bottom: 0px;
+                margin-right: 15px;
+            }
+        }
+    }
+
+    @media screen and (min-width: $mediaQueryDesktop) {
+       
+    }
+}
