@@ -9,16 +9,16 @@
     border-radius: 12px;
     padding: 10px 15px;
 
-    .title{
+    .title {
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        .form{
+        .form {
             display: none;
         }
 
-        span{
+        span {
             color: $primaryColor;
             font-size: 18px;
             letter-spacing: 0.01em;
@@ -26,20 +26,20 @@
         }
     }
 
-    .mobiles-filters{
+    .mobiles-filters {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
 
         margin-top: 15px;
 
-        div{
+        div {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding-bottom: 8px;
 
-            label{
+            label {
                 color: $primaryColor;
                 font-size: 16px;
                 margin-bottom: 0px;
@@ -49,6 +49,45 @@
     }
 
     @media screen and (min-width: $mediaQueryDesktop) {
-       
+        padding: 20px;
+
+        .mobiles-filters {
+            display: none;
+        }
+
+        .title {
+            img {
+                display: none;
+            }
+
+            .form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                label {
+                    color: $primaryColor;
+                    font-size: 16px;
+                    margin-left: 10px;
+                    margin-right: 15px;
+                    margin-bottom: 0px;
+                }
+
+                input, select {
+                    border-color: $primaryColor;
+                }
+
+                select{
+                    width: 100px;
+                }
+
+                .separator{
+                    border: 1px solid $primaryColor;
+                    width: 0px;
+                    height: 40px;
+                    margin-left: 15px;
+                }
+            }
+        }
     }
 }
