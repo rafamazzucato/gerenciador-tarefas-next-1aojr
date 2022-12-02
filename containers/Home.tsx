@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 
 type HomeProps = {
@@ -13,5 +14,6 @@ export const Home: NextPage<HomeProps> = ({setToken}) => {
 
     return (<>
         <Header sair={sair}/>
+        <Footer/>
     </>);
 }
