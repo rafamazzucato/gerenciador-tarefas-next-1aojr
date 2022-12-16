@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { Task } from "../types/Task";
+import { Item } from "./Item";
 
 type ListProps ={
     tasks: Task[]
@@ -10,7 +11,7 @@ export const List : NextPage<ListProps> = ({ tasks}) => {
         <div className={"container-list" + (tasks && tasks.length > 0 ? ' not-empty' : '')}>
             {tasks && tasks.length > 0 
                 ?
-                    tasks.map(t => <p key={t._id}>{t.name}</p>)
+                    tasks.map(t => <Item key={t._id} task={t}/>)
                 :
                     <>
                         <img src="/empty.svg" alt="Nenhuma tarefa cadastrada!"/>
