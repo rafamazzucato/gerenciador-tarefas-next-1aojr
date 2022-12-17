@@ -3,10 +3,11 @@ import { NextPage } from "next";
 import { Task } from "../types/Task";
 
 type ItemProps = {
-    task: Task
+    task: Task,
+    selectTask(t: Task) : void
 }
 
-export const Item : NextPage<ItemProps> = ({task}) => {
+export const Item : NextPage<ItemProps> = ({task, selectTask}) => {
     const isTaskFinished = task.finishDate || false;
 
     const getDataText = () =>{
@@ -18,7 +19,8 @@ export const Item : NextPage<ItemProps> = ({task}) => {
     }
 
     return (
-        <div className={"container-item" + (isTaskFinished ? '' : ' active')}>
+        <div className={"container-item" + (isTaskFinished ? '' : ' active')}
+            onClick={() => isTaskFinished ? null : selectTask(task)}>
             <img src={isTaskFinished ? '/checked.svg' : '/not-checked.svg'}
                 alt={isTaskFinished ? 'Tarefa concluída' : 'Tarefa em aberto'}/>
             <div>
