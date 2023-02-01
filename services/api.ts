@@ -1,4 +1,6 @@
 import axios, {Method} from 'axios';
+import { url } from 'inspector';
+
 
 export const executeRequest = (endpoint: string, method: Method, body? : any) =>{
     const headers = {'Content-Type' : 'application/json'} as any;
@@ -18,3 +20,5 @@ export const executeRequest = (endpoint: string, method: Method, body? : any) =>
         timeout: 30000
     });
 }
+
+

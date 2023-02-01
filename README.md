@@ -1,3 +1,9 @@
+## Projeto da disciplina da FRONT-END ENGINEERING E UX 
+
+
+- Professor: RAFAEL THOMAZELLI MAZZUCATO
+- Aluna: Ana Karla Amador Ribeiro Fujioka
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
