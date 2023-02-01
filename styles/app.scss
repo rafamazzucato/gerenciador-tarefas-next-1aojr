@@ -3,9 +3,9 @@
 
 @font-face {
     font-family: 'Biennale Regular';
-    font-weight: normal;
-    font-style: normal;
-    src: url('../public/fonts/BiennaleRegular.otf') format('opentype');
+    font-weight: normal ;
+    font-style: normal ;
+    src: url('../public/fonts/BiennaleRegular.otf') format('opentype')
 }
 
 html{
@@ -21,7 +21,7 @@ body{
     height: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1 1 0%;
+    flex:1 1 0%;
     align-items: center;
     justify-content: center;
     -webkit-box-pack: center;
@@ -88,4 +88,3 @@ input, select {
 @import './list.scss';
 @import './item.scss';
 @import './modal.scss';
-

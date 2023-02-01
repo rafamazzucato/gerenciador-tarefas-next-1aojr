@@ -1,6 +1,7 @@
 @import './config.scss';
 
-.container-login {
+.container-login{
+    
     .logo {
         width: 178px;
         display: block;
@@ -22,7 +23,7 @@
             }
 
             input {
-                width: 224px;
+                width: 80%;
                 border-radius: 0px;
                 border-top-width: 0px;
                 border-left-width: 0px;
@@ -36,35 +37,45 @@
                 }
             }
         }
-
         button{
             width: 100%;
             height: 56px;
             background-color: $primaryColor;
-            border: none;
-            color: white;
+            border:none;
+            color:white;
             border-radius: 12px;
-            font-size: 16px;
+            font-size:16px;
             margin-top: 20px;
         }
+
+        span {
+            display: flex;
+            justify-content: center;
+            color: $mediumGreyColor;
+            text-decoration: underline;
+            cursor: pointer;
+            padding-top: 15px;
+        }
+
+        
     }
 
-    @media screen and (min-width: $mediaQueryDesktop) {
+    @media screen and (min-width: $mediaQueryDesktop){
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
 
         .logo{
-            width: 40%;
+            width: 120%;
             margin: 0px;
         }
-
-        .form {
+        
+        .form{
             border: 1px solid $primaryColor;
             border-radius: 32px;
-            padding: 80px 40px;
-            margin-left: 5%;
+            padding:80px 40px ;
+            margin-left: 20px;
 
             .input{
                 img{
@@ -76,10 +87,22 @@
                     font-size: 16px;
                 }
             }
-
+            
             button{
                 font-size: 18px;
             }
+
+            span {
+                display: flex;
+                justify-content: center;
+                color: $mediumGreyColor;
+                text-decoration: underline;
+                cursor: pointer;
+                padding-top: 15px;
+            }
         }
+
+
     }
 }
+

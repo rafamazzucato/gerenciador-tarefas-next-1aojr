@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import type { NextPage } from "next";
+import moment from "moment";
+import { NextPage } from "next";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
+import { executeRequest } from "../services/api";
 import { Task } from "../types/Task";
 import { Item } from "./Item";
-import { executeRequest } from '../services/api';
-import { Modal } from "react-bootstrap";
-import moment from 'moment';
 
 type ListProps = {
     tasks: Task[],
     getFilteredData():void
 }
 
-export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
+export const List : NextPage<ListProps> = ({tasks,getFilteredData}) =>{
 
     // STATES DO MODAL
     const [showModal, setShowModal] = useState(false);
@@ -94,23 +94,25 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
         }
     }
 
-    return (
+
+    return(
         <>
             <div className={"container-list" + (tasks && tasks.length > 0 ? ' not-empty' : '')}>
-                {tasks && tasks.length > 0
+                {tasks && tasks.length > 0 
                     ?
-                    tasks.map(t => <Item key={t._id} task={t} selectTask={selectTask} />)
+                        tasks.map(t => <Item key={t._id} task={t} selectTask={selectTask} />)
                     :
-                    <>
-                        <img src="/empty.svg" alt="Nenhuma tarefa cadastrada!" />
-                        <p>Você ainda não possui tarefas cadastradas!</p>
-                    </>
+                        <>
+                            <img src="/empty.svg" alt="Nenhuma tarefa cadastrada!"/>
+                            <p>Você ainda não possui tarefas cadastradas!</p>
+                        </>
                 }
             </div>
             <Modal
                 show={showModal}
                 onHide={closeModal}
-                className="container-modal">
+                className="container-modal"
+            >
                 <Modal.Body>
                     <p>Atualizar uma tarefa</p>
                     {errorMsg && <p className="error">{errorMsg}</p>}
@@ -118,7 +120,7 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
                         value={name} onChange={e => setName(e.target.value)} />
                     <input type='date' placeholder="Previsão da tarefa"
                         value={finishPrevisionDate} onChange={e => setFinishPrevisionDate(e.target.value)} />
-                    <input type='date' placeholder="Conclusão da tarefa"
+                    <input type='text' placeholder="Conclusão da tarefa" onFocus={(e)=>{e.target.type = "date"}} onBlur={(e) => e.target.type = "text"}
                         value={finishDate} onChange={e => setFinishDate(e.target.value)} />
                 </Modal.Body>
                 <Modal.Footer>
@@ -129,5 +131,5 @@ export const List: NextPage<ListProps> = ({ tasks, getFilteredData }) => {
                 </Modal.Footer>
             </Modal>
         </>
-    );
+    )
 }

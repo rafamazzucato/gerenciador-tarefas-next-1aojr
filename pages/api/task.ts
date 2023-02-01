@@ -1,35 +1,36 @@
-import moment from 'moment';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { use } from 'react';
 import { connectToDB } from '../../middlewares/connectToDB';
 import { jwtValidator } from '../../middlewares/jwtValidator';
 import { TaskModel } from '../../models/Task';
-import { UserModel } from '../../models/User';
 import { DefaultMessageResponse } from '../../types/DefaultMessageResponse';
 import { Task } from '../../types/Task';
+import moment from 'moment';
+import { UserModel } from '../../models/User';
 
 const endpoint = async (req: NextApiRequest, res: NextApiResponse<DefaultMessageResponse | any>) => {
-    try{
+    try {
 
         const userId = req?.body?.userId ? req?.body?.userId : req?.query?.userId as string;
         const failedValidation = await validateUser(userId);
         if(failedValidation){
-            return res.status(400).json({ error: failedValidation});
+            return res.status(400).json({error: failedValidation});
         }
 
-        if(req.method === 'POST'){
-            return await saveTask(req, res, userId);
+        if(req.method === 'POST'){ 
+            return await saveTask(req,res,userId);
         }else if(req.method === 'GET'){
-            return await getTasks(req, res, userId);
+            return await getTasks(req,res,userId);
         }else if(req.method === 'PUT'){
-            return await updateTask(req, res, userId);
+            return await updateTask(req,res,userId);
         }else if(req.method === 'DELETE'){
-            return await deleteTask(req, res, userId);
+            return await deleteTask(req,res,userId);
         }
 
-        res.status(400).json({ error: 'Metodo solicitado nao existe '});
-    }catch(e){
-        console.log('Ocorreu erro ao gerenciar tarefas: ', e);
-        res.status(500).json({ error: 'Ocorreu erro ao gerenciar tarefas, tente novamente '});
+        res.status(400).json({error:'Metodo solicitado não existe '});
+    } catch (e: any) {
+        console.log('Ocorreu erro ao listar tarefas do usuário:', e);
+        return res.status(500).json({ error: 'Ocorreu erro ao listar tarefas do usuário, tente novamente....' });
     }
 }
 
@@ -86,8 +87,8 @@ const deleteTask = async (req: NextApiRequest, res: NextApiResponse<DefaultMessa
     return res.status(200).json({ msg: 'Tarefa deletada com sucesso' });
 }
 
-const getTasks = async (req: NextApiRequest, res: NextApiResponse<DefaultMessageResponse | Task[]>, userId: string) => {
-
+const getTasks = async(req: NextApiRequest, res: NextApiResponse<DefaultMessageResponse | Task[]>, userId: string) => {
+    
     const params = req.query as any;
 
     const query = {
@@ -135,14 +136,14 @@ const validateUser = async (userId: string) => {
     }
 }
 
-const saveTask = async (req: NextApiRequest, res: NextApiResponse<DefaultMessageResponse>, userId: string) => {
+const saveTask = async(req: NextApiRequest, res: NextApiResponse<DefaultMessageResponse>, userId: string) => {
     if (req.body) {
         const task = req.body as Task;
         if (!task.name || task.name.length < 2) {
             return res.status(400).json({ error: 'Nome da tarefa invalida' });
         }
 
-        if (!task.finishPrevisionDate || moment(task.finishPrevisionDate).isBefore(moment())) {
+        if (!task.finishPrevisionDate || moment(task.finishPrevisionDate).isBefore(moment().format('yyyy-MM-DD'))) {
             return res.status(400).json({ error: 'Data de previsao invalida ou menor que hoje' });
         }
 
